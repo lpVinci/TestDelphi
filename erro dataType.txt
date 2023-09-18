@@ -1,0 +1,36 @@
+try
+  // Abra a conexão
+    FDConnection1.Open;
+    FDQuery2.Open;
+
+
+
+  // Atribua os valores aos parâmetros
+  FDQuery2.ParamByName('name').AsString := inputNome.Text;
+  FDQuery2.ParamByName('email').AsString := inputEmail.Text;
+  FDQuery2.ParamByName('func').AsString := inputFunc.Text;
+
+
+    // Execute a consulta de inserção
+  FDQuery2.ExecSQL;
+
+  // Atualize o dataset após a inserção
+  FDQuery1.Open;
+  FDQuery1.Refresh;
+  FDQuery1.Close;
+
+  // Feche o dataset após a execução
+  FDQuery2.Close;
+  FDConnection1.Close;
+
+    ShowMessage('Dados inseridos com sucesso!');
+
+
+    except
+    on E: Exception do
+    begin
+      // Trate os erros aqui
+      ShowMessage('Erro ao inserir dados: ' + E.Message);
+
+    end;
+  end;
